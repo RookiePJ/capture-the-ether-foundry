@@ -30,7 +30,7 @@ contract GuessTheNewNumberTest is Test {
   }
 
   // Here we will calculate the random number using the same code as in the target contract
-  function crackTheNewRandomNumber() public returns (uint8) {
+  function crackTheNewRandomNumber() public view returns (uint8) {
     return uint8( uint256( keccak256( 
           abi.encodePacked(blockhash(block.number - 1), block.timestamp))
     ));
