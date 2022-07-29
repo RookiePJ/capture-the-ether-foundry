@@ -1,0 +1,64 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.13;
+
+import "forge-std/Test.sol";
+import "source/math/CONTRACT_NAME.sol";
+
+contract CONTRACT_NAMETest is Test {
+
+  CONTRACT_NAMEChallenge INSTANCE_NAMEChallenge;
+
+  address account1;
+  address account2;
+
+  function setUp() public {
+    account1 = vm.addr(1);
+    vm.label(account1, "Account1[address]");
+    vm.deal(account1, 10 ether);
+
+    INSTANCE_NAMEChallenge = new CONTRACT_NAMEChallenge{value: 1 ether}();
+    vm.label(address(INSTANCE_NAMEChallenge), "CONTRACT_NAMEChallenge[contract]");
+    vm.startPrank(account1);
+  }
+
+  function testIncorrectGuess() public {
+    // incorrect, costs 1 ether each
+
+    // add smart contract function calls here
+    // INSTANCE_NAMEChallenge.FUNCTION{value: 1 ether}(42);
+
+    uint expectedAccountBalance = 8 * (1 ether);
+    assertEq((account1.balance), expectedAccountBalance );
+    uint expectedContractBalance = 3 * (1 ether);
+    assertEq(address(INSTANCE_NAMEChallenge).balance, expectedContractBalance );
+
+    console.log(account1.balance);
+    console.log(address(INSTANCE_NAMEChallenge).balance);
+  }
+
+  function testCorrectGuess() public {
+    // correct, costs 1 ether, returns 2
+
+    // add smart contract function calls here
+    // INSTANCE_NAMEChallenge.FUNCTION{value: 1 ether}(42);
+
+    uint expectedAccountBalance = 11 * (1 ether);
+    assertEq((account1.balance), expectedAccountBalance );
+    uint expectedContractBalance = 0;
+    assertEq(address(INSTANCE_NAMEChallenge).balance, expectedContractBalance );
+
+    console.log(account1.balance);
+    console.log(address(INSTANCE_NAMEChallenge).balance);
+  }
+
+  function testIsComplete() public {
+    assertTrue(INSTANCE_NAMEChallenge.isComplete());
+
+    console.log(account1.balance);
+    console.log(address(INSTANCE_NAMEChallenge).balance);
+  }
+
+  fallback() external payable { }
+  receive() external payable { }
+}
+
